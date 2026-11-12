@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>项目四 · 五天实施计划</title>
+<style>
+  body { font: 16px/1.75 -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+         color: #24292f; max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 1.9em; border-bottom: 2px solid #eaecef; padding-bottom: .3em; margin: 1.2em 0 .6em; }
+  h2 { font-size: 1.45em; border-bottom: 1px solid #eaecef; padding-bottom: .25em; margin: 1.6em 0 .6em; }
+  h3 { font-size: 1.2em; margin: 1.3em 0 .5em; }
+  p, li { margin: .45em 0; }
+  ul, ol { padding-left: 1.6em; }
+  code { background: #f3f4f6; border-radius: 4px; padding: .15em .35em; font-size: .92em;
+          font-family: "SF Mono", Menlo, monospace; }
+  pre { background: #f6f8fa; padding: 14px 16px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  blockquote { margin: .8em 0; padding: .5em 1em; border-left: 4px solid #d0d7de;
+               background: #f8f9fa; color: #57606a; border-radius: 0 6px 6px 0; }
+  table { border-collapse: collapse; width: 100%; margin: .9em 0; font-size: .95em; }
+  th, td { border: 1px solid #d0d7de; padding: 7px 12px; text-align: left; vertical-align: top; }
+  th { background: #f3f4f6; }
+  tr:nth-child(even) td { background: #fafbfc; }
+  hr { border: none; border-top: 1px solid #eaecef; margin: 2em 0; }
+  ul.check { list-style: none; padding-left: .4em; }
+  input[type=checkbox] { margin-right: .4em; }
+</style></head><body>
+<h1>项目四：带工具调用的业务助手后端 —— 五天实施计划（定稿）</h1>
+<ul>
+<li>作者：徐赫</li>
+<li>排期：Day1 2026-11-12（周四）→ Day5 2026-11-16（周一）</li>
+<li>每天投入 5~7h，合计约 30h；<strong>Day4 是不可压缩的硬交付日</strong></li>
+<li>沿用既有约定：<code>.env</code> 存密钥、DeepSeek 走 OpenAI 兼容（<code>base_url=https://api.deepseek.com</code>）、客户端 <code>max_retries=0</code>、跑批用 <code>python -u</code>、<code>NO_PROXY</code> 覆盖全部上游域名</li>
+</ul>
+<hr>
+<h2>一、五天总览</h2>
+<table><thead><tr><th>天</th><th>主题</th><th>核心交付物</th><th>当日验收</th></tr></thead><tbody><tr><td>Day1</td><td>骨架 + 工具注册表</td><td>4 个工具可被 Schema 校验后执行</td><td><code>pytest tests/test_registry.py</code> 全绿</td></tr><tr><td>Day2</td><td>调用循环引擎 + 落库</td><td>多步任务端到端跑通，tool_calls 可查</td><td>库里能查到 ≥2 条调用记录</td></tr><tr><td>Day3</td><td>自愈 + 主备切换 + 可观测</td><td>校验失败回填修正、trace 串起来</td><td>10 条缺字段任务自愈率（先看趋势）</td></tr><tr><td>Day4 ★</td><td>100 条评测集 + 指标脚本</td><td>5 项指标第一版真实数字</td><td><code>scripts/run_eval.py</code> 输出版 metrics</td></tr><tr><td>Day5</td><td>调用链页面 + 幂等 + 收尾</td><td>页面可视 + 验收脚本 + README</td><td><code>python -m scripts.acceptance</code> 全项 PASS</td></tr></tbody></table>
+<p><strong>范围取舍（先钉死，避免中途膨胀）</strong></p>
+<ul>
+<li>主线必做：任务书 ①~⑤ + 5 项指标。</li>
+<li>顺手融入（与主链路共用代码，边际成本低）：Pydantic v2 二次校验 + 错误回填、主备模型切换与熔断、高危工具人工确认、<code>X-Idempotency-Key</code>（仅退款场景）、mock 模型单测。</li>
+<li>明确延后（不共用主链路，塞进来会挤掉验收）：结构化输出成功率对照实验（提示词 JSON vs JSON mode + json-repair）、1000 条断点续跑大规模抽取、对话前端（Markdown 渲染 / DOMPurify / 引用标注 / 转人工）。</li>
+</ul>
+<hr>
+<h2>二、验收指标与口径（跑测前钉死，Day4 只执行不设计）</h2>
+<table><thead><tr><th>#</th><th>指标</th><th>目标</th><th>口径</th></tr></thead><tbody><tr><td>1</td><td>端到端成功率</td><td>≥ 95%</td><td>判据 = 工具序列正确 + 关键参数正确 + 终答含关键事实；<strong>不判文本相似度</strong>；另人工抽检 20 条复核</td></tr><tr><td>2</td><td>平均工具调用轮次</td><td>≤ 3</td><td>每任务 <code>max(round)</code> 求均值（按任务数平均，不按调用数）</td></tr><tr><td>3</td><td>工具超时率</td><td>≤ 1%</td><td>超时次数 / 总工具调用次数；为证明指标非摆设，注入 <code>TOOL_SLOW_RATE=0.5%</code> 慢响应，实测应≈0.5%</td></tr><tr><td>4</td><td>缺字段自愈率</td><td>≥ 70%</td><td>20 条专项任务中：首轮校验失败 → 3 轮内参数补齐并调用成功的比例</td></tr><tr><td>5</td><td>调用链可追溯</td><td>100%</td><td>每任务有 Langfuse trace（LLM span + tool span 齐全），页面可复现同一链路</td></tr></tbody></table>
+<p>评测集配比：单工具 25 / 多工具 30 / 缺字段 20 / 超轮次 10 / 无解拒答 15 = 100 条。</p>
+<hr>
+<h2>三、技术选型（已定，不再讨论）</h2>
+<table><thead><tr><th>决策点</th><th>选型</th><th>理由</th></tr></thead><tbody><tr><td>服务层</td><td>FastAPI + Pydantic v2</td><td>任务书要求；Pydantic 模型同时充当工具的二次校验层</td></tr><tr><td>模型</td><td>DeepSeek <code>deepseek-chat</code> 主用，<code>deepseek-reasoner</code> 作对照</td><td>tool_calls 格式稳定、便宜；备模型走同一兼容协议</td></tr><tr><td>工具调用协议</td><td>手写循环，不用 LangChain Agent</td><td>第 5 轮强制总结、错误回填时机、落库粒度都要自己控</td></tr><tr><td>可观测</td><td>Langfuse Cloud + Python SDK v3</td><td>v3 底层即 OpenTelemetry，不必自建 collector（自建需 ClickHouse + Redis + Worker）</td></tr><tr><td>存储</td><td>PostgreSQL（tasks / tool_calls）+ Redis（幂等状态位）</td><td>PG 存可追溯记录，Redis 只存短生命周期状态</td></tr><tr><td>天气工具</td><td>Open-Meteo（免 key）</td><td>真实业务数据以 PG 的订单/库存为准，天气只用于凑多步场景</td></tr><tr><td>评测并发</td><td><code>asyncio.Semaphore(20)</code></td><td>与任务书异步主题一致</td></tr></tbody></table>
+<p><strong>工具清单（4 个，覆盖 readonly / 高危两类权限）</strong></p>
+<table><thead><tr><th>工具</th><th>参数（required）</th><th>权限</th><th>超时</th><th>说明</th></tr></thead><tbody><tr><td><code>get_weather</code></td><td>city, date(枚举 today/tomorrow)</td><td>readonly</td><td>5s</td><td>Open-Meteo</td></tr><tr><td><code>get_order</code></td><td>order_id</td><td>readonly</td><td>3s</td><td>PG 查订单（含收货城市，供天气联动）</td></tr><tr><td><code>get_inventory</code></td><td>sku</td><td>readonly</td><td>3s</td><td>PG 查库存</td></tr><tr><td><code>refund</code></td><td>order_id, amount(&gt;0, ≤订单金额), reason(枚举)</td><td><strong>write</strong></td><td>5s</td><td>无 <code>X-Confirm-Token</code> 时返回「需人工确认」错误文本，不执行</td></tr></tbody></table>
+<hr>
+<h2>四、架构与目录</h2>
+<pre><code>Client ──POST /chat──▶ FastAPI
+                        │
+                        ▼
+                  AgentLoop（手写，含 5 轮上限）
+                        │
+        ┌───────────────┼─────────────────┐
+        ▼               ▼                 ▼
+   LLM Client       Tool Registry      PG / Redis
+  (主/备+熔断)    (schema/timeout/    (任务/调用记录/幂等位)
+                    权限/确认)
+                        │
+                        ▼
+                 工具执行 wait_for(5s)
+                        │
+                        └── tool 消息回填（成功/校验失败/超时 都回填）
+
+全程 trace ──▶ Langfuse（task trace → llm span / tool span）</code></pre>
+<pre><code>带工具调用的业务助手后端/
+├── .env                      # 密钥（gitignore，不入库不进文档）
+├── requirements.txt
+├── migrations/001_init.sql   # 建表 + 种子数据（订单/库存）
+├── app/
+│   ├── main.py               # /chat、/tasks/{id}/chain、/chain 页面
+│   ├── agent_loop.py         # 【手敲】循环引擎
+│   ├── llm.py                # 主备切换 + 熔断 + 半开探测
+│   ├── db.py                 # PG 读写
+│   ├── observe.py            # Langfuse instrumentation
+│   └── tools/
+│       ├── registry.py       # 【手敲】装饰器：Schema/超时/权限
+│       ├── weather.py
+│       ├── order.py          # get_order / get_inventory
+│       └── refund.py         # 高危写操作
+├── evals/
+│   ├── tasks_100.jsonl       # 评测集（输入 + 期望工具序列 + 关键参数）
+│   └── judge.py              # 判分规则（纯规则，可复现）
+├── scripts/
+│   ├── run_eval.py           # Semaphore(20) 批量跑、断点续跑、失败清单
+│   ├── selfheal_probe.py     # 缺字段自愈专项
+│   └── acceptance.py         # 5 项指标一键汇总
+├── tests/
+│   ├── test_registry.py
+│   ├── test_loop.py          # mock 模型：固定 tool_call 序列
+│   └── fixtures/             # 真实响应录制样例（1~2 条即可）
+└── reports/metrics.md</code></pre>
+<p>数据表（最小集）：</p>
+<table><thead><tr><th>表</th><th>字段</th></tr></thead><tbody><tr><td><code>tasks</code></td><td>id, request, status, final_answer, rounds, trace_id, created_at</td></tr><tr><td><code>tool_calls</code></td><td>id, task_id, round, tool_name, arguments jsonb, result_truncated(≤512), status(success/invalid/timeout/denied/error), duration_ms, error, created_at</td></tr></tbody></table>
+<p>接口：<code>POST /chat</code>（body: session_id, message；可选头 <code>X-Idempotency-Key</code>、<code>X-Confirm-Token</code>）、<code>GET /tasks/{id}/chain</code>、<code>GET /chain?task_id=</code>。</p>
+<hr>
+<h2>五、逐日计划</h2>
+<blockquote><p><strong>R</strong> = 你手敲、我逐行讲；<strong>W</strong> = 我代写脚手架（建表 SQL、落库函数、HTML 渲染等重复劳动）。</p></blockquote>
+<h3>Day1（11-12，约 6h）：骨架 + 工具注册表</h3>
+<ul class="check">
+<li><input type="checkbox" disabled>目录、venv、<code>.env</code>、<code>requirements.txt</code>；PG/Redis 启动检查（W）</li>
+<li><input type="checkbox" disabled><code>migrations/001_init.sql</code>：两表 + 订单/库存种子数据（W）</li>
+<li><input type="checkbox" disabled><code>app/tools/registry.py</code>（<strong>R</strong>）：<code>@tool</code> 装饰器统一承载</li>
+<li>JSON Schema（<code>required</code> / <code>enum</code> / 字段 <code>description</code>，描述要写成"给人看的使用说明"）</li>
+<li>Pydantic v2 模型二次校验（Schema 给模型看，Pydantic 给代码把关）</li>
+<li>超时（<code>asyncio.wait_for</code>）、权限等级（readonly 直接执行 / write 校验 confirm token）</li>
+<li><input type="checkbox" disabled>四个工具实现（<strong>R</strong>）：weather / order / inventory / refund</li>
+<li><input type="checkbox" disabled>高危确认：缺 <code>X-Confirm-Token</code> 返回结构化错误，不触达业务写逻辑</li>
+<li><input type="checkbox" disabled>单测 <code>test_registry.py</code>：四个 tool_call JSON 走完 校验 → 执行 → 结构化返回；含非法枚举、缺字段、越权三个反例</li>
+</ul>
+<p><strong>当日验收</strong>：<code>pytest tests/test_registry.py -q</code> 全绿；<code>python -m app.tools.registry --list</code> 能打印工具契约表。</p>
+<h3>Day2（11-13，约 7h）：调用循环引擎 + 落库</h3>
+<ul class="check">
+<li><input type="checkbox" disabled><code>app/agent_loop.py</code>（<strong>R</strong>）：</li>
+<li>messages + tools → 解析 <code>tool_calls</code> → 注册表分发 → <code>wait_for</code> 执行 → tool 消息回填 → 继续</li>
+<li>第 5 轮注入 system 指令「停止调用工具，直接基于已有信息总结」，保证一定收敛</li>
+<li>每轮把 <code>round</code> 记入上下文，超时/异常也回填（模型要知道失败原因，而不是我们直接崩）</li>
+<li><input type="checkbox" disabled><code>app/db.py</code>（<strong>W</strong>）：<code>tool_calls</code> 落库（入参 jsonb、耗时、结果截断 512 字符、状态）</li>
+<li><input type="checkbox" disabled><code>app/main.py</code>（<strong>W</strong>）：<code>POST /chat</code> 串起 loop → 落 tasks → 返回 {task_id, answer, rounds}</li>
+<li><input type="checkbox" disabled>单测 <code>test_loop.py</code>：mock 模型返回固定 tool_call 序列，验证轮次上限、工具分发、回填顺序</li>
+</ul>
+<p><strong>当日验收</strong>：跑通「查订单 A 的收货城市明天天气，判断是否适合补发」双工具任务，<code>select * from tool_calls where task_id=...</code> 有 ≥2 条记录。</p>
+<h3>Day3（11-14，约 6h）：校验自愈 + 主备切换 + Langfuse</h3>
+<ul class="check">
+<li><input type="checkbox" disabled>错误回填文案（<strong>R</strong>，这是自愈率的关键）：</li>
+<li>结构统一为 <code>{"error_code":"invalid_arguments","field":"date","expected":"枚举 today|tomorrow","allowed":[...],"hint":"..."}</code></li>
+<li>文案只描述事实与正确取值，不说"请重试"这类空话</li>
+<li><input type="checkbox" disabled>主备切换（<strong>W</strong>）：主模型连续失败 3 次 → 切备；30s 后半开探测（1 次试探，成功则恢复主用）</li>
+<li><input type="checkbox" disabled>Langfuse（<strong>W</strong>）：一次请求 = 一个 trace，LLM 调用 / 工具执行各一个 span，<code>trace_id</code> 回写 tasks</li>
+<li><input type="checkbox" disabled><code>scripts/selfheal_probe.py</code>：10 条缺 required 字段任务，看首轮失败后能否 1~2 轮补齐</li>
+</ul>
+<p><strong>当日验收</strong>：自愈探针跑出趋势数字（此时样本小，只做机制验证，正式数字看 Day4）。</p>
+<h3>Day4（11-15，约 8h）★ 关键日：100 条评测 + 指标</h3>
+<ul class="check">
+<li><input type="checkbox" disabled><code>evals/tasks_100.jsonl</code>（<strong>R</strong> 判据 + 我草拟题目你改）：每条含 <code>task_id / input / expect_tools / expect_args / expect_facts</code></li>
+<li><input type="checkbox" disabled><code>evals/judge.py</code>（<strong>R</strong>）：规则判分，按"工具序列 + 关键参数 + 终答关键事实"三段判定，输出失败原因码</li>
+<li><input type="checkbox" disabled><code>scripts/run_eval.py</code>（<strong>W</strong>）：<code>Semaphore(20)</code>、逐条落 <code>runs/{run_id}/{task_id}.json</code>、断点续跑（已存在即跳过）、失败清单导出重跑</li>
+<li><input type="checkbox" disabled>跑第一轮全量 → 按失败原因归类（参数错 / 工具选错 / 轮次超限 / 拒答不当 / 超时）→ 只修 Top2 问题再跑一轮</li>
+<li><input type="checkbox" disabled>产出 <code>reports/metrics.md</code>：5 项指标 + 失败分布 + 与目标的 gap</li>
+</ul>
+<p><strong>当日验收</strong>：5 项指标有真实数字；即使某项不达标也要有归因，不允许"没测"。</p>
+<h3>Day5（11-16，约 5h）：调用链页面 + 幂等 + 收尾</h3>
+<ul class="check">
+<li><input type="checkbox" disabled><code>GET /chain?task_id=</code>（<strong>R</strong> 聚合 SQL + <strong>W</strong> HTML）：时间瀑布，展示工具名 / 耗时条 / 状态色 / 入参摘要 / 结果截断，附 Langfuse trace 链接</li>
+<li><input type="checkbox" disabled>页面对所有字段做 HTML 转义（工具返回内容不可信），不引入前端框架</li>
+<li><input type="checkbox" disabled>幂等（有余力，<strong>R</strong>）：退款接口 <code>X-Idempotency-Key</code> + Redis <code>idem:{key}</code> 状态位，验证「重试不重复退款」</li>
+<li><input type="checkbox" disabled><code>scripts/acceptance.py</code>：一键输出 5 项指标对照表 + PASS/FAIL</li>
+<li><input type="checkbox" disabled>README（启动命令 / 验收命令 / 指标口径）+ 踩坑记录</li>
+<li><input type="checkbox" disabled>用 Day4 脚本做最终全量跑，结果定格</li>
+</ul>
+<p><strong>当日验收</strong>：<code>python -m scripts.acceptance</code> 全项 PASS；任取 3 条任务，页面链路与 Langfuse trace 对得上。</p>
+<hr>
+<h2>六、被延后的学习主题（对应关系写清楚，不算漏做）</h2>
+<table><thead><tr><th>任务书主题</th><th>本项目处理</th></tr></thead><tbody><tr><td>Function Calling 全链路</td><td>✅ Day1-2，手写工具 + JSON Schema + 多轮回填</td></tr><tr><td>工具工程化（超时/二次校验/错误回填/高危确认）</td><td>✅ Day1-3 全做</td></tr><tr><td>异步批量 Semaphore(20)</td><td>✅ Day4（规模 100 条；1000 条 + 断点续跑只验证机制，不跑全量）</td></tr><tr><td>可靠性加固（退避重试/熔断/主备/半开）</td><td>✅ Day3（退避重试只对工具外部接口做，模型重试交给主备切换）</td></tr><tr><td>单元测试与 mock</td><td>✅ Day2/5 mock 模型；录制回放只留 1~2 条 fixture 作样例</td></tr><tr><td>幂等与去重</td><td>⚠️ Day5 有余力才做，限退款场景</td></tr><tr><td>结构化输出对比（JSON mode vs 提示词 + json-repair）</td><td>❌ 延后。主链路的 JSON 约束已由 tool_call 的 Schema 天然提供，单独做对照实验会挤掉 Day4</td></tr><tr><td>前端安全与体验（Markdown/DOMPurify/引用标注/转人工）</td><td>❌ 本项目无对话前端；只做调用链页面的基础转义</td></tr></tbody></table>
+<hr>
+<h2>七、风险与预案</h2>
+<table><thead><tr><th>风险</th><th>预案</th></tr></thead><tbody><tr><td>DeepSeek tool_calls 格式与预期不符</td><td>Day1 上午先写 20 行探测脚本验证；不行立刻切方舟 doubao 兼容入口</td></tr><tr><td>判分规则含糊导致 Day4 返工</td><td>判分规则 Day2 结束前定稿，Day4 只执行</td></tr><tr><td>Langfuse Cloud 网络不通</td><td>降级：本地落 span 表 + 自建页面，指标照测，文档里注明 trace 佐证降级原因</td></tr><tr><td>5 天被课程打断</td><td>Day4 为底线；Day5 页面可压缩成纯 JSON 接口</td></tr><tr><td>评测跑批打爆限流</td><td>Semaphore(20) + 单任务失败重试 1 次 + 失败清单重跑，不整场重来</td></tr><tr><td>超时率指标"天然为 0"缺乏说服力</td><td>注入 0.5% 慢响应故障，实测≈0.5%，同时验证超时兜底真的生效</td></tr></tbody></table>
+<hr>
+<h2>八、开工前置检查（30 分钟做完）</h2>
+<ul class="check">
+<li><input type="checkbox" disabled>新 DeepSeek key 写入 <code>.env</code>（旧 key 曾出现在对话里，建议作废重建）</li>
+<li><input type="checkbox" disabled><code>NO_PROXY</code> 含 <code>api.deepseek.com</code> 等全部上游域名</li>
+<li><input type="checkbox" disabled>模型客户端 <code>max_retries=0</code></li>
+<li><input type="checkbox" disabled>PostgreSQL / Redis 已启动（项目二教训：重启后需手动拉起）</li>
+<li><input type="checkbox" disabled>Langfuse Cloud 项目建好，public/secret key 进 <code>.env</code></li>
+<li><input type="checkbox" disabled><code>git init</code> + <code>.gitignore</code>（<code>.env</code>、<code>runs/</code>、<code>__pycache__</code>）</li>
+</ul>
+<hr>
+<h2>九、原开放问题（已定）</h2>
+<ol>
+<li><strong>Day1 起算日</strong>：2026-11-12（周四），Day5 落在 11-16（周一）。</li>
+<li><strong>100 条评测集谁出</strong>：我先草拟题目结构，你改判据与期望工具序列——判据决定指标可信度，必须你过一遍。</li>
+<li><strong>人工二次确认的形态</strong>：请求头 <code>X-Confirm-Token</code>（任务级 token）即可，不做确认回调接口；页面/Demo 里手动带上即可演示"无 token 被拒 → 有 token 放行"。</li>
+</ol>
+</body></html>
