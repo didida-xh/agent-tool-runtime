@@ -315,10 +315,13 @@ if __name__ == "__main__":
     import argparse
 
     from app.tools import order, refund, weather  # noqa: F401
+    # python -m 下本文件以 __main__ 运行，工具模块 import 的是 app.tools.registry，
+    # 是另一个模块对象，所以要打印那一份的 REGISTRY，否则永远是空表
+    from app.tools import registry as impl
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--list", action="store_true", help="打印工具契约表")
     args = parser.parse_args()
     if args.list:
-        print(REGISTRY.contract_table())
-        print(f"\n共 {len(REGISTRY)} 个工具")
+        print(impl.REGISTRY.contract_table())
+        print(f"\n共 {len(impl.REGISTRY)} 个工具")
