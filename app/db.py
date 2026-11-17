@@ -92,3 +92,28 @@ async def record_tool_call(
         duration_ms,
         error or None,
     )
+
+
+async def fetch_task(task_id: str):
+    pool = await get_pool()
+    row = await pool.fetchrow(
+        "SELECT id, request, status, final_answer, rounds, trace_id, created_at "
+        "FROM tasks WHERE id = $1",
+        task_id,
+    )
+    return dict(row) if row else None
+
+
+async def fetch_tool_calls(task_id: str):
+    """调用链页面用：按执行顺序取回全部调用记录。
+
+    arguments 取 ::text——asyncpg 返回 jsonb 时是字符串，直接给前端展示更省事。
+    """
+    pool = await get_pool()
+    rows = await pool.fetch(
+        "SELECT round, tool_name, arguments::text AS arguments, result_truncated, "
+        "status, duration_ms, error, created_at FROM tool_calls "
+        "WHERE task_id = $1 ORDER BY id",
+        task_id,
+    )
+    return [dict(r) for r in rows]
