@@ -1,4 +1,5 @@
 """PG 访问层：连接池 + 工具用到的三个查询/写操作。"""
+import json
 import os
 
 import asyncpg
@@ -42,3 +43,52 @@ async def mark_refunding(order_id: str) -> bool:
         order_id,
     )
     return row is not None
+
+
+
+async def create_task(task_id: str, request: str) -> None:
+    pool = await get_pool()
+    await pool.execute(
+        "INSERT INTO tasks (id, request, status) VALUES ($1, $2, 'running')",
+        task_id,
+        request,
+    )
+
+
+async def finish_task(task_id: str, status: str, answer: str, rounds: int) -> None:
+    pool = await get_pool()
+    await pool.execute(
+        "UPDATE tasks SET status = $2, final_answer = $3, rounds = $4 WHERE id = $1",
+        task_id,
+        status,
+        answer,
+        rounds,
+    )
+
+
+async def record_tool_call(
+    *,
+    task_id: str,
+    round_no: int,
+    tool_name: str,
+    arguments: dict,
+    result: str,
+    status: str,
+    duration_ms: int,
+    error: str = "",
+) -> None:
+    """每执行完一次工具立刻写一条，不等任务结束——中途崩了链路也还在。"""
+    pool = await get_pool()
+    await pool.execute(
+        "INSERT INTO tool_calls "
+        "(task_id, round, tool_name, arguments, result_truncated, status, duration_ms, error) "
+        "VALUES ($1, $2, $3, $4::jsonb, $5, $6, $7, $8)",
+        task_id,
+        round_no,
+        tool_name,
+        json.dumps(arguments, ensure_ascii=False, default=str),
+        (result or "")[:512],  # 入库截断 512，回填给模型的另按 2000 截
+        status,
+        duration_ms,
+        error or None,
+    )

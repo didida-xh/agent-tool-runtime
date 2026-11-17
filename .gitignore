@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc
 runs/
+data/traces/
 .DS_Store
 *.log
 .idea/
