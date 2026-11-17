@@ -1,0 +1,1685 @@
+{
+  "summary": {
+    "total": 100,
+    "passed": 100,
+    "pass_rate": 1.0,
+    "avg_rounds": 1.01,
+    "tool_calls": 129,
+    "timeout_rate": 0.0,
+    "self_heal": {
+      "tasks": 0,
+      "healed": 0,
+      "rate": null
+    },
+    "by_category": {
+      "order": {
+        "total": 20,
+        "passed": 20
+      },
+      "inventory": {
+        "total": 15,
+        "passed": 15
+      },
+      "weather": {
+        "total": 12,
+        "passed": 12
+      },
+      "combo": {
+        "total": 20,
+        "passed": 20
+      },
+      "negative": {
+        "total": 13,
+        "passed": 13
+      },
+      "refund": {
+        "total": 10,
+        "passed": 10
+      },
+      "chat": {
+        "total": 10,
+        "passed": 10
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "e001",
+      "category": "order",
+      "question": "订单 A1001 现在是什么状态？",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001 目前状态是「已支付（paid）」，客户张伟，收货城市杭州，订单金额 299.00 元。需要我帮你做进一步操作吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e002",
+      "category": "order",
+      "question": "A1001 这笔订单的金额是多少",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001（客户：张伟，收货城市：杭州）的金额是 **299.00 元**，当前状态为已支付。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e003",
+      "category": "order",
+      "question": "帮我查一下订单 A1002 的状态",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002 的详情如下：\n\n- **客户**：李娜\n- **收货城市**：成都\n- **状态**：已送达（delivered）\n- **金额**：89.5 元\n\n订单已送达。如需退货、退款或其它协助，请告诉我。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e004",
+      "category": "order",
+      "question": "A1003 发货了吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "A1003 已经发货了。\n\n- 客户：王强\n- 收货城市：广州\n- 订单状态：已发货\n- 订单金额：459.00 元\n\n需要我帮您查物流单号或预计到达时间吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e005",
+      "category": "order",
+      "question": "A1004 现在什么情况",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004 的详情如下：\n\n- **客户**：赵敏\n- **收货城市**：北京\n- **订单金额**：1299.00 元\n- **当前状态**：退款中（refunding）\n\n这笔订单目前正在退款处理中，还没有最终完成。需要我帮您进一步处理吗？例如确认退款原因或金额？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e006",
+      "category": "order",
+      "question": "订单 A1002 是谁下的",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002 是**李娜**下的，收货城市成都，金额 89.5 元，当前状态为已签收（delivered）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e007",
+      "category": "order",
+      "question": "A1003 寄到哪个城市",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1003 收货城市是**广州**（客户：王强，状态：已发货，金额：459 元）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e008",
+      "category": "order",
+      "question": "查一下订单 A1001 的完整信息",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001 的信息如下：\n\n- **订单号**：A1001\n- **客户**：张伟\n- **收货城市**：杭州\n- **状态**：paid（已支付）\n- **金额**：299.00 元\n\n需要我进一步处理这单吗（例如查库存、退款等）？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e009",
+      "category": "order",
+      "question": "A1004 退款金额是多少",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004（客户赵敏，北京）情况如下：\n\n- 订单金额：1299.00 元\n- 当前状态：**退款中（refunding）**\n\n所以这笔单可退的金额最多是 **1299.00 元**。不过该订单已经处于「退款中」状态，可能已有退款流程在走，我不建议重复发起退款，否则可能造成重复退款。\n\n需要我确认下您是想了解进度，还是要针对这笔单做其他处理（比如部分退款）？请告知，我再帮您核对。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e010",
+      "category": "order",
+      "question": "A1002 的收货城市是哪里",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002 的收货城市是**成都**（客户：李娜，状态：已签收，金额：89.5 元）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e011",
+      "category": "order",
+      "question": "订单 A1001 是谁买的，寄到哪里？",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001：\n\n- 客户：张伟\n- 收货城市：杭州\n- 状态：已支付\n- 金额：299.00 元\n\n需要我再查别的信息吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e012",
+      "category": "order",
+      "question": "A1003 现在到哪一步了",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "A1003（客户王强，收货城市广州，金额 459 元）当前状态是**已发货（shipped）**，也就是说包裹已经出仓在运输途中，尚未显示签收。\n\n需要我帮你查别的吗？比如具体商品的库存、发货城市的天气，或者这本单想退货退款也可以告诉我。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e013",
+      "category": "order",
+      "question": "帮我看看 A1004 的退款进度",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004（客户：赵敏，收货城市：北京）当前状态为 **refunding（退款中）**，订单金额 1299.00 元。\n\n系统里目前只能看到“退款中”这个状态，没有更细的进度节点（比如审核到哪一步、预计到账时间）。建议您再等一两个工作日，或联系财务/售后同事确认打款进度。\n\n需要我帮您跟进其他订单，或者查到账情况吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e014",
+      "category": "order",
+      "question": "A1001 付了多少钱",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001 目前状态为已支付，金额为 299.00 元（客户张伟，收货城市杭州）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e015",
+      "category": "order",
+      "question": "查订单 A1002",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002 详情：\n\n- 客户：李娜\n- 收货城市：成都\n- 状态：已签收（delivered）\n- 订单金额：89.5 元\n\n需要我帮您办理退款，或查询该订单中商品的库存吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e016",
+      "category": "order",
+      "question": "A1003 的订单金额是多少",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1003 金额为 **459.00 元**，客户王强，收货城市广州，当前状态为已发货（shipped）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e017",
+      "category": "order",
+      "question": "A1004 的客户是谁",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004 的客户是 **赵敏**（收货城市：北京，订单金额 1299.00 元，当前状态：退款中）。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e018",
+      "category": "order",
+      "question": "订单 A1001 发货了吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1001 目前状态是**已付款（paid）**，还没有发货。订单信息如下：\n\n- 客户：张伟\n- 收货城市：杭州\n- 订单金额：299.00 元\n- 状态：paid（已付款，待发货）\n\n如需我帮您催发货或办理其他事项，请告诉我。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e019",
+      "category": "order",
+      "question": "A1002 的状态是什么",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002（客户：李娜，收货城市：成都）当前状态为**已送达（delivered）**，订单金额 89.5 元。\n\n需要我帮你查其他信息或做进一步处理吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e020",
+      "category": "order",
+      "question": "看看 A1003 的订单详情",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1003 的详情如下：\n\n- **客户**：王强\n- **收货城市**：广州\n- **状态**：已发货（shipped）\n- **金额**：459.00 元\n\n需要我帮您查这个订单的其他信息（比如物流、退款）吗？",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e021",
+      "category": "inventory",
+      "question": "SKU-001 还有多少库存？",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-001（保温杯）当前库存 120 件，存放于杭州仓。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e022",
+      "category": "inventory",
+      "question": "查一下 SKU-002 的库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-002（电热毯）当前库存 8 件，所在仓为成都仓。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e023",
+      "category": "inventory",
+      "question": "SKU-003 现在有货吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-003（空气炸锅，广州仓）目前库存为 0，暂时无货。\n\n如果你愿意，我可以帮你看看其他仓或其他类似商品的情况——只是我这边只能按 SKU 查询库存，你可以提供其他备选 SKU。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e024",
+      "category": "inventory",
+      "question": "保温杯（SKU-001）库存还剩多少",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-001（保温杯）目前库存 **120 件**，所在仓为 **杭州仓**。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e025",
+      "category": "inventory",
+      "question": "电热毯 SKU-002 还有几件",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "电热毯（SKU-002）目前还有 **8 件**，存放在**成都仓**。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e026",
+      "category": "inventory",
+      "question": "空气炸锅 SKU-003 的库存数量",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-003（空气炸锅）当前库存为 **0 件**，所在仓为广州仓。需要我帮你查其他仓或其他 SKU 吗？",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e027",
+      "category": "inventory",
+      "question": "SKU-001 在哪个仓库",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-001（保温杯）在杭州仓，当前库存 120 件。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e028",
+      "category": "inventory",
+      "question": "SKU-002 放在哪个仓",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-002（电热毯）目前放在**成都仓**，库存 8 件。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e029",
+      "category": "inventory",
+      "question": "SKU-003 的仓库在哪",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-003（空气炸锅）的仓库是**广州仓**，当前库存为 0。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e030",
+      "category": "inventory",
+      "question": "查 SKU-001 的名称和库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-001 的信息如下：\n\n- **名称**：保温杯\n- **库存**：120 件\n- **所在仓**：杭州仓",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e031",
+      "category": "inventory",
+      "question": "SKU-002 是什么商品，有多少库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-002 是**电热毯**，当前库存 **8 件**，存放在**成都仓**。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e032",
+      "category": "inventory",
+      "question": "SKU-003 是什么，库存多少",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-003 是「空气炸锅」，目前库存 0，所在仓为广州仓（已无货）。需要我查其他 SKU 或该商品的替代款吗？",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e033",
+      "category": "inventory",
+      "question": "帮我确认 SKU-001 的可用数量",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-001（保温杯）当前可用库存：**120 件**，所在仓库：杭州仓。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e034",
+      "category": "inventory",
+      "question": "SKU-002 库存紧张吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-002（电热毯）目前库存 **8 件**，存放在成都仓，确实比较紧张。需要我看看某个订单能否从其他仓发货，或者需要补货提醒吗？",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e035",
+      "category": "inventory",
+      "question": "SKU-003 还有货可以卖吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "SKU-003（空气炸锅，广州仓）目前库存为 0，暂时无货可卖，需要等补货。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e036",
+      "category": "weather",
+      "question": "杭州今天天气怎么样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "杭州今天（11月17日）天气情况：\n\n- 气温：12.8℃ ~ 16.1℃\n- 降雨概率：100%（今天大概率有雨）\n\n出门建议带伞，穿件外套，注意保暖防雨。需要我查明天天气吗？",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e037",
+      "category": "weather",
+      "question": "杭州明天会下雨吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "杭州明天（2026-11-18）降雨概率是 51%，属于有可能下雨，出门建议带把伞。\n\n气温方面：最低 6.4℃，最高 15.8℃，早晚偏凉，注意保暖。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e038",
+      "category": "weather",
+      "question": "北京今天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "北京今天（2026-11-17）天气如下：\n\n- **最高气温**：7.6℃\n- **最低气温**：2.8℃\n- **降雨概率**：25%\n\n气温偏低，早晚较冷，建议穿厚外套出门，并带把伞以防零星降雨。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e039",
+      "category": "weather",
+      "question": "北京明天的气温范围",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "北京明天（2026-11-18）气温范围：**0.1℃ ~ 6.2℃**，降雨概率 0%。天气较冷，早晚温差大，出门建议注意保暖。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e040",
+      "category": "weather",
+      "question": "上海今天热不热",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "上海今天不算热：最高 17.7℃，最低 12.1℃，降雨概率 27%。体感偏凉，建议穿外套；出门可以带把伞。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e041",
+      "category": "weather",
+      "question": "上海明天天气如何",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "上海明天（2026-11-18）天气：最高约 15.3℃，最低约 6.9℃，降雨概率 9%（基本无雨）。早晚温差较大，建议穿外套。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e042",
+      "category": "weather",
+      "question": "成都今天需要带伞吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "成都今天（11月17日）降雨概率为 17%，气温 8.8℃～16.3℃，不用特意带伞；如果要出门一整天或者不放心，带把折叠伞也不占地方。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e043",
+      "category": "weather",
+      "question": "成都明天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "成都明天（2026-11-18）天气：\n\n- 最高气温：13.7℃\n- 最低气温：6.9℃\n- 降雨概率：12%\n\n整体偏凉，早晚温差较大，建议穿较厚外套；降雨概率较低，出行基本不用带伞。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e044",
+      "category": "weather",
+      "question": "广州今天多少度",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "广州今天（2026-11-17）气温 20.7℃ ~ 28.1℃，降雨概率 78%，出门建议带伞。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e045",
+      "category": "weather",
+      "question": "广州明天天气怎么样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "广州明天（2026-11-18）天气：\n\n- 气温：16.6℃ ~ 22.8℃\n- 降雨概率：82%，很可能下雨\n\n早晚温差不大，但降雨概率较高，出门建议带把伞。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e046",
+      "category": "weather",
+      "question": "深圳今天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "深圳今天（2026-11-17）天气：\n\n- 最高气温：28.9℃\n- 最低气温：21.3℃\n- 降雨概率：2%\n\n整体晴好偏热，降雨基本无虞，出门穿短袖加件薄外套就够了。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e047",
+      "category": "weather",
+      "question": "深圳明天的降雨概率",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "深圳明天（2026-11-18）降雨概率约 **43%**，气温 17.1℃ ~ 27.3℃。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e048",
+      "category": "combo",
+      "question": "订单 A1001 的收货城市今天天气怎么样",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "订单 A1001 的收货城市是**杭州**，今天（2026-11-17）天气：\n\n- 最高温 16.1℃，最低温 12.8℃\n- 降雨概率 **100%**（基本全天有雨）\n\n提醒：今天杭州有雨、气温偏低，如果这单有配送安排，建议提醒收货人注意防雨防湿，或与客户沟通改约派送时间。需要我帮你查别的信息吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e049",
+      "category": "combo",
+      "question": "A1001 寄到杭州，杭州明天会下雨吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "杭州明天（11月18日）气温 6.4℃~15.8℃，降雨概率 **51%**，有一半左右的可能下雨，建议提前做好防雨准备。\n\n需要我一并查一下订单 A1001 的详情吗？",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e050",
+      "category": "combo",
+      "question": "查 A1002 的状态，顺便看看成都明天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1002**\n- 客户：李娜\n- 收货城市：成都\n- 状态：已送达\n- 金额：89.5 元\n\n**成都明天（2026-11-18）天气**\n- 气温：6.9℃ ~ 13.7℃\n- 降雨概率：12%\n\n明天成都比较凉、早晚温差大，降水概率不高，出门记得穿件外套。还需要我帮你看别的吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e051",
+      "category": "combo",
+      "question": "A1003 是什么状态？寄到广州的话今天天气如何",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1003**\n- 客户：王强\n- 收货城市：广州\n- 状态：**已发货**（shipped）\n- 订单金额：459.0 元\n\n**广州今天天气**（2026-11-17）\n- 气温：20.7℃ ~ 28.1℃\n- 降雨概率：**78%** —— 降雨可能性较高，建议提醒收货时注意防雨，或与快递沟通投递方式。\n\n需要我帮您跟进这个订单的物流或做其他处理吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e052",
+      "category": "combo",
+      "question": "帮我查 SKU-002 库存，再看看成都今天的天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查好了：\n\n**SKU-002 库存**\n- 商品：电热毯\n- 库存：8 件\n- 所在仓：成都仓\n\n**成都今天天气（2026-11-17）**\n- 最高 16.3℃，最低 8.8℃\n- 降雨概率 17%\n\n温差比较大、偏凉，电热毯这个季节应该正合适。需要我帮你查订单或其他 SKU 吗？",
+      "tools": [
+        "get_inventory",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e053",
+      "category": "combo",
+      "question": "SKU-003 有货吗？广州今天天气怎么样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果如下：\n\n**SKU-003（空气炸锅）库存**\n- 库存：**0 件（缺货）**\n- 所在仓：广州仓\n\n目前无法下单，需要等补货。如果方便，可以告诉我大概什么时候需要；我也可以帮你查一下其他 SKU。\n\n**广州今天天气（2026-11-17）**\n- 最高温 28.1℃，最低温 20.7℃\n- 降雨概率 **78%**，降雨可能性较高，出门记得带伞。",
+      "tools": [
+        "get_inventory",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e054",
+      "category": "combo",
+      "question": "SKU-001 库存多少，杭州明天天气如何",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果如下：\n\n**SKU-001（保温杯）库存**\n- 库存数量：120 件\n- 所在仓：杭州仓\n\n**杭州明天（2026-11-18）天气**\n- 最高温：15.8°C\n- 最低温：6.4°C\n- 降雨概率：51%\n\n明天杭州偏凉、早晚温差较大（相差约 9°C），且有五成左右降雨可能，建议外出带把伞、注意添衣保暖。如果是要安排发货或户外作业，也需要留意这半天左右的降雨风险。\n\n还需要我查别的 SKU 库存或其他城市的天气吗？",
+      "tools": [
+        "get_inventory",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e055",
+      "category": "combo",
+      "question": "A1001 金额多少？杭州明天出门要带伞吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1001**：客户张伟，收货城市杭州，状态为已支付，金额 **299 元**。\n\n**杭州明天（2026-11-18）天气**：气温 6.4～15.8℃，降雨概率 51%。建议**带伞**——降水概率过半数，虽然不算必然下雨，但备着更稳妥；另外早晚温差近 10℃、最低 6℃ 出头，出门最好加件外套。",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e056",
+      "category": "combo",
+      "question": "先查订单 A1002，再看北京今天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果如下：\n\n**订单 A1002**\n- 客户：李娜\n- 收货城市：成都\n- 状态：已送达（delivered）\n- 金额：89.5 元\n\n**北京今天天气（2026-11-17）**\n- 最高温：7.6°C，最低温：2.8°C\n- 降雨概率：25%\n\n需要我进一步做什么吗？（比如查库存或处理退换货）",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e057",
+      "category": "combo",
+      "question": "A1004 的客户是谁，北京明天天气怎样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "- **A1004 客户**：赵敏（收货城市北京，订单金额 1299 元，当前状态：退款中）\n- **北京明天（2026-11-18）天气**：最高 6.2℃，最低 0.1℃，降雨概率 0%，天气干燥偏冷，注意保暖。\n\n另外提示：该订单目前处于“退款中”状态，如果您需要跟进这笔退款，可以告诉我。",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e058",
+      "category": "combo",
+      "question": "查一下 A1003 和 SKU-001 的情况",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果如下：\n\n**订单 A1003**\n- 客户：王强\n- 收货城市：广州\n- 状态：已发货（shipped）\n- 金额：459.00 元\n\n**SKU-001（保温杯）**\n- 库存：120 件\n- 所在仓：杭州仓\n\n需要我进一步做什么吗？比如查广州的天气以评估配送、或者对该订单发起退款等。",
+      "tools": [
+        "get_order",
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e059",
+      "category": "combo",
+      "question": "A1004 状态和 SKU-003 库存一起告诉我",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果如下：\n\n**订单 A1004**\n- 客户：赵敏\n- 收货城市：北京\n- 状态：**退款中**（refunding）\n- 金额：¥1299.00\n\n**SKU-003（空气炸锅）**\n- 库存：**0 件**（无货）\n- 所在仓：广州仓\n\n补充提醒：A1004 目前处于退款中状态，如需推进退款或查询退款进度，可以告诉我；SKU-003 当前库存为 0，如果需要补货或看替代品，也可以继续问我。",
+      "tools": [
+        "get_order",
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e060",
+      "category": "combo",
+      "question": "订单 A1001 和 A1002 的状态分别是什么",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "两个订单的状态如下：\n\n| 订单号 | 客户 | 收货城市 | 状态 | 金额 |\n|---|---|---|---|---|\n| A1001 | 张伟 | 杭州 | 已支付（paid） | ¥299.00 |\n| A1002 | 李娜 | 成都 | 已送达（delivered） | ¥89.50 |\n\n需要我帮你对这两个订单做进一步处理吗？比如查询物流、发起退款等。",
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e061",
+      "category": "combo",
+      "question": "A1003 的金额和 SKU-002 的库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查到了：\n\n**订单 A1003**\n- 客户：王强\n- 收货城市：广州\n- 状态：已发货（shipped）\n- 金额：**459.00 元**\n\n**SKU-002（电热毯）库存**\n- 可用库存：**8 件**\n- 所在仓：成都仓\n\n需要我再看别的信息吗？",
+      "tools": [
+        "get_order",
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e062",
+      "category": "combo",
+      "question": "A1002 寄到成都，成都明天天气如何",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002（客户李娜，收货城市成都，金额 89.5 元）状态显示为**已送达**。\n\n成都明天（2026-11-18）天气：\n- 最高温 13.7℃，最低温 6.9℃\n- 降雨概率 12%\n\n整体偏凉、基本无雨，早晚温差较大，注意保暖。需要我帮您查其他信息（比如库存或其他订单）吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e063",
+      "category": "combo",
+      "question": "查订单 A1004，再看上海今天天气",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1004**\n- 客户：赵敏\n- 收货城市：北京\n- 状态：退款中（refunding）\n- 金额：1299.00 元\n\n注意：这笔订单目前已经是「退款中」状态，如果还想再做退款操作，需要先确认之前的退款流程。是否需要我进一步处理？\n\n**上海今天天气（2026-11-17）**\n- 气温：12.1℃ ~ 17.7℃\n- 降雨概率：27%\n\n天气偏凉，早晚温差不大但整体温度较低，出门建议加件外套；降雨概率不算高，可备一把折叠伞。",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e064",
+      "category": "combo",
+      "question": "A1001 状态 + 杭州今天天气 + 说明是否适合发货",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1001**\n- 客户：张伟\n- 收货城市：杭州\n- 状态：已支付（paid）\n- 金额：￥299.00\n\n**杭州今天天气（2026-11-17）**\n- 气温：12.8℃ ~ 16.1℃\n- 降雨概率：100%（有雨）\n\n**发货建议**\n订单本身已支付、无异常，可以正常发货。但杭州今天降雨概率 100%、气温偏低（12.8~16.1℃），建议：\n- 务必做好防水包装（尤其纸箱/纸品类），外套防水袋或缠绕膜；\n- 如商品怕潮湿或怕低温，建议推迟到明天或改约配送时间；\n- 提前与快递确认雨天时效，避免延误投诉。\n\n如果这批货是防水耐潮品类，按正常流程发货即可。需要我帮你查商品库存或其他信息吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e065",
+      "category": "combo",
+      "question": "帮我把 SKU-001 和 SKU-002 的库存都查一下",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查好了：\n\n| SKU | 商品 | 库存 | 所在仓 |\n|---|---|---|---|\n| SKU-001 | 保温杯 | 120 件 | 杭州仓 |\n| SKU-002 | 电热毯 | 8 件 | 成都仓 |\n\nSKU-002 库存偏低（8 件），如果需要大批量出货，建议提早补货或确认是否有调拨可能。还需要我查别的吗？",
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e066",
+      "category": "combo",
+      "question": "A1003 状态如何，广州明天天气怎么样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1003**\n- 客户：王强\n- 收货城市：广州\n- 状态：已发货（shipped）\n- 金额：459.00 元\n\n**广州明天天气（11-18）**\n- 气温：16.6℃ ~ 22.8℃\n- 降雨概率：82%（较大概率有雨）\n\n提醒：明天广州降雨概率很高，如果这单是配送/上门类服务，建议提前和客户沟通时间或准备雨具防护。需要我做什么进一步操作吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e067",
+      "category": "combo",
+      "question": "A1002 订单详情，加成都今天降雨概率",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "**订单 A1002**\n- 客户：李娜\n- 收货城市：成都\n- 状态：已送达（delivered）\n- 金额：89.50 元\n\n**成都今天（2026-11-17）天气**\n- 降雨概率：17%\n- 气温：8.8℃ ~ 16.3℃\n\n需要我再看这个订单的其他信息（比如商品库存）吗？",
+      "tools": [
+        "get_order",
+        "get_weather"
+      ],
+      "tool_status": [
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e068",
+      "category": "negative",
+      "question": "订单 A9999 现在什么状态",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A9999 查不到记录，系统里没有返回该订单的信息。可能是订单号有误，麻烦你核对一下订单号（例如形如 A1001 的格式），我再帮你查。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e069",
+      "category": "negative",
+      "question": "查一下 A8888 的订单",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "未查到订单 A8888 的信息（系统返回为空）。可能订单号有误，或该订单不存在。麻烦您核对一下订单号，我再帮您查。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e070",
+      "category": "negative",
+      "question": "SKU-999 还有多少库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "我查了 SKU-999，系统没有返回库存记录，可能是这个 SKU 不存在或已下架。你可以核对一下 SKU 编号，或者告诉我商品名称，我再帮你确认。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e071",
+      "category": "negative",
+      "question": "帮我看下 SKU-888 的库存",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "没查到 SKU-888 的库存记录（返回为空）。可能是 SKU 号有误，或该 SKU 不在系统里。\n\n方便确认一下 SKU 号吗？如果可以，也请提供商品名称或订单号，我帮您进一步核实。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e072",
+      "category": "negative",
+      "question": "A1004 能退款吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004 目前**不能再次发起退款**：\n\n- 客户：赵敏\n- 收货城市：北京\n- 订单金额：1299 元\n- 当前状态：**退款中（refunding）**，这笔退款已经在处理流程里了\n\n所以无需重复提交，重复操作可能会出错。你可以：\n\n1. 等待当前退款流程完成；或\n2. 告诉我你想了解的是进度查询还是其他问题（比如部分金额争议），我再帮你看看能做什么。\n\n如果想退的金额和原因跟已提交的不一致，也请说明，我帮你核对。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e073",
+      "category": "negative",
+      "question": "给订单 A1004 退 100 元，理由是不想要了",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1004 目前状态是 **refunding（退款处理中）**，不是已支付待退款状态。系统里这笔订单已经在走退款流程，我不建议再对它发起一笔新的退款，否则可能造成重复退款。\n\n请确认一下：\n- 订单号：A1004\n- 客户：赵敏，北京\n- 订单金额：1299.00 元\n- 拟退金额：100.00 元，原因：不想要了（no_longer_needed）\n\n您是否知道这笔订单之前已经提交过退款申请？如果需要，我可以帮您按上面的信息发起——但请您明确回复\"确认退款\"，我再执行。如果之前那笔退款需要撤销或修改金额，请告诉我具体诉求。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e074",
+      "category": "negative",
+      "question": "订单 A1002 退 100 元，质量问题",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A1002 的金额是 **89.5 元**，而您要退 100 元，超过了订单金额，无法按 100 元退款。\n\n请确认：\n- 订单号：A1002\n- 客户：李娜（成都）\n- 订单金额：89.5 元（已发货）\n- 退款原因：质量问题\n- 可退金额上限：89.5 元\n\n是否改为按 **89.5 元全额退款**？您确认后我就立即执行。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e075",
+      "category": "negative",
+      "question": "给 A1005 退款 50 元",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查不到订单 A1005 的信息，系统返回为空，可能订单号有误或该订单不存在。\n\n请确认一下：\n1. 订单号是否为 A1005？\n2. 退款 50 元的原因是什么（不再需要 / 质量问题 / 破损）？\n\n确认订单号正确后我再核实金额并跟你确认，然后才发起退款。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e076",
+      "category": "negative",
+      "question": "火星今天天气怎么样",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查不到——这个工具只支持中国城市，没有“火星”这个城市。\n\n另外提醒一下：火星没有地球意义上的“天气”，它只有极稀薄的大气（约地球的 0.6%），日常是尘暴、强紫外辐射和极端温差（约 −125℃ 到 20℃），供参考。\n\n如果你其实是想查某个真实城市（比如“火星村”这类地名，或者火星探测任务相关的信息），告诉我具体城市名或需求，我再帮你查。",
+      "tools": [
+        "get_weather"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e077",
+      "category": "negative",
+      "question": "A0 这个订单存在吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "我查了系统，没有订单号为 **A0** 的订单（返回为空，说明不存在）。\n\n请确认一下订单号是否完整，比如 A1001 这种格式；把正确的订单号发给我，我再帮你查。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e078",
+      "category": "negative",
+      "question": "SKU-100 库存还有吗",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "查询结果为空，系统里没有查到 SKU-100 的库存记录。可能是 SKU 号有误，也可能是该 SKU 尚未录入。麻烦你确认一下 SKU 编号（或用商品名我可以帮你核对正确的 SKU）。",
+      "tools": [
+        "get_inventory"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e079",
+      "category": "negative",
+      "question": "A1004 退款进度到哪了",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "A1004 目前状态是**退款中（refunding）**，金额 1299.00 元，还没完成到账。\n\n我这边能看到的信息仅此，系统里没有更细的退款节点（如已审核／退款方式／预计到账时间）。建议以支付渠道（原路退回）的到账通知为准，一般退款完成后会有短信或账单记录。\n\n如果需要我帮你做进一步处理（比如催办或补充说明），告诉我具体诉求即可。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e080",
+      "category": "negative",
+      "question": "A7777 的客户是谁",
+      "passed": true,
+      "rounds": 1,
+      "status": "success",
+      "answer": "订单 A7777 查不到任何记录，可能是订单号有误或该订单不在当前系统中。请核对一下订单号，我再帮您查。",
+      "tools": [
+        "get_order"
+      ],
+      "tool_status": [
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e081",
+      "category": "refund",
+      "question": "订单 A1001 我要退款 100 元，理由是不想要了",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行完成 ✅\n\n- 订单号：A1001（客户：张伟，已支付，订单金额 299 元）\n- 退款金额：100 元\n- 退款原因：不想要了（no_longer_needed）\n- 结果：退款成功\n\n如需全额退款或查询其他订单，随时告诉我。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e082",
+      "category": "refund",
+      "question": "A1001 全额退款 299 元，商品有质量问题",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行完成：\n\n- 订单号：A1001（客户：张伟，杭州，原状态：已支付）\n- 退款金额：299.00 元（全额）\n- 退款原因：商品质量问题（quality_issue）\n- 结果：退款成功",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e083",
+      "category": "refund",
+      "question": "帮我给 A1002 退 50 元，东西损坏了",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行成功 ✅\n\n- 订单号：A1002\n- 退款金额：50 元（订单总额 89.5 元）\n- 原因：商品损坏\n- 状态：已退款成功\n\n退款将按原支付渠道退回，具体到账时间以支付渠道为准。还需要我处理其他事项吗？",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e084",
+      "category": "refund",
+      "question": "A1002 退 89.5 元，质量问题",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行完成：\n\n- 订单号：A1002（客户：李娜，成都，已发货）\n- 退款金额：89.5 元（全额）\n- 退款原因：质量问题（quality_issue）\n- 状态：退款成功\n\n如后续客户有退货物流需求，可再告知我。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e085",
+      "category": "refund",
+      "question": "A1003 退 200 元，不想要了",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已完成 ✅\n\n- 订单号：A1003（客户 王强，广州）\n- 订单金额：459 元\n- 退款金额：200 元（部分退款）\n- 退款原因：不想要了（no_longer_needed）\n- 状态：退款成功\n\n提醒一下：该订单原状态为「已发货」，建议同时和仓库/客户确认是否需要拦截或退回包裹。还有其他需要处理的吗？",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e086",
+      "category": "refund",
+      "question": "给 A1003 全额退款 459 元，商品损坏",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已成功执行 ✅\n\n- 订单号：A1003\n- 客户：王强（广州）\n- 退款金额：459 元（全额）\n- 退款原因：商品损坏（damaged）\n- 状态：已退款\n\n需要我同时记录一笔破损补发或通知仓库拦截物流吗？",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e087",
+      "category": "refund",
+      "question": "A1001 退 1 元，体验不好不想要了",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已成功执行 ✅\n\n- 订单号：A1001\n- 退款金额：1.00 元\n- 退款原因：no_longer_needed（不再需要）\n- 状态：已退款成功\n\n如还有其他需要，随时告诉我。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e088",
+      "category": "refund",
+      "question": "A1002 退 20 元，损坏",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已完成 ✅\n\n- 订单号：A1002（客户李娜，已签收）\n- 退款金额：20 元（订单总额 89.5 元，剩余 69.5 元）\n- 退款原因：损坏（damaged）\n- 状态：退款成功\n\n如后续需要按原路退回进度或补充凭证，随时告诉我。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e089",
+      "category": "refund",
+      "question": "A1003 退 100 元，质量问题",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行成功 ✅\n\n- 订单号：A1003\n- 退款金额：100 元\n- 退款原因：质量问题\n- 处理结果：已退款\n\n该订单原金额 459 元，本次为部分退款 100 元，剩余 359 元未退。如需其他帮助请告诉我。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e090",
+      "category": "refund",
+      "question": "订单 A1001 退 299 元，不想要了",
+      "passed": true,
+      "rounds": 2,
+      "status": "success",
+      "answer": "退款已执行完成：\n\n- 订单号：A1001（张伟，杭州，已支付）\n- 退款金额：299 元（全额）\n- 退款原因：不想要了，无法退款原因归类为“非需求退货”\n- 状态：退款成功\n\n款项将按原支付渠道退回，具体到账时间以银行或支付平台为准。",
+      "tools": [
+        "get_order",
+        "get_order",
+        "refund"
+      ],
+      "tool_status": [
+        "success",
+        "success",
+        "success"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e091",
+      "category": "chat",
+      "question": "你好",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "你好！我是业务助手，可以帮你查订单、查库存、查天气，或者处理退款。\n\n请问需要我帮你做什么？如果有订单号或 SKU，直接发给我就行。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e092",
+      "category": "chat",
+      "question": "你能做什么",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "我是业务助手，主要能帮你做这些：\n\n1. **查订单**：按订单号查客户、收货城市、状态、金额。\n2. **查库存**：按 SKU 查库存数量和所在仓城市。\n3. **查天气**：查中国城市今天/明天的天气，用于判断配送、发货安排。\n4. **发起退款**：对已支付订单退款（需先跟你确认订单号、金额、原因，你确认后我才执行）。\n\n需要查什么，直接把订单号 / SKU / 城市发我就行。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e093",
+      "category": "chat",
+      "question": "谢谢",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "不客气！如果还有订单、库存或天气方面的问题，随时找我就行。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e094",
+      "category": "chat",
+      "question": "帮我写一句鼓励的话",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "今天也值得为自己骄傲：你已经坚持走到这里了，慢慢来，每一步都算数。愿你今天遇到的都是温柔的人，做的小事也有回响。💪",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e095",
+      "category": "chat",
+      "question": "1 加 1 等于几",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "1 加 1 等于 2。有什么订单、库存或天气相关的问题需要我帮忙吗？",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e096",
+      "category": "chat",
+      "question": "你叫什么名字",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "我是你的业务助手，没有特别设定名字——你可以直接叫我业务助手，或者给我起个你顺口的称呼。\n\n有什么需要我帮忙的吗？查订单、看库存、查天气，或者处理退款都可以。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e097",
+      "category": "chat",
+      "question": "讲个短笑话",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "程序员去买菜，老婆说：“买一斤包子，如果看到卖西瓜的，买两个。”\n\n结果他买回来两个包子。\n\n老婆问：“怎么只买两个？”\n\n他说：“因为看到卖西瓜的了。” 😄",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e098",
+      "category": "chat",
+      "question": "今天心情不好",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "我理解，心情不好的时候确实挺难熬的。要不要先歇一会儿，或者跟我说说发生什么了？如果想先把手头的事处理掉，我也能帮你查订单、库存这类事情。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e099",
+      "category": "chat",
+      "question": "再见",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "再见！有需要随时找我。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    },
+    {
+      "id": "e100",
+      "category": "chat",
+      "question": "用一句话介绍你自己",
+      "passed": true,
+      "rounds": 0,
+      "status": "success",
+      "answer": "我是业务助手，可以帮你查订单、查库存、查天气，并在你确认后办理退款。",
+      "tools": [],
+      "tool_status": [],
+      "problems": []
+    }
+  ]
+}

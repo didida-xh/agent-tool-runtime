@@ -1,0 +1,392 @@
+{
+  "summary": {
+    "injected_total": 20,
+    "invalid_triggered": 20,
+    "healed": 19,
+    "heal_rate": 0.95
+  },
+  "results": [
+    {
+      "id": "e001",
+      "question": "订单 A1001 现在是什么状态？",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": false,
+      "healed": false,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": [
+        "终答未含 ['paid', '已支付']"
+      ]
+    },
+    {
+      "id": "e002",
+      "question": "A1001 这笔订单的金额是多少",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e003",
+      "question": "帮我查一下订单 A1002 的状态",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e004",
+      "question": "A1003 发货了吗",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e005",
+      "question": "A1004 现在什么情况",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e006",
+      "question": "订单 A1002 是谁下的",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e007",
+      "question": "A1003 寄到哪个城市",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e008",
+      "question": "查一下订单 A1001 的完整信息",
+      "tool": "get_order",
+      "dropped": "order_id",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_order",
+        "get_order"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e021",
+      "question": "SKU-001 还有多少库存？",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e022",
+      "question": "查一下 SKU-002 的库存",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e023",
+      "question": "SKU-003 现在有货吗",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e024",
+      "question": "保温杯（SKU-001）库存还剩多少",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e025",
+      "question": "电热毯 SKU-002 还有几件",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e026",
+      "question": "空气炸锅 SKU-003 的库存数量",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e027",
+      "question": "SKU-001 在哪个仓库",
+      "tool": "get_inventory",
+      "dropped": "sku",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_inventory",
+        "get_inventory"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e036",
+      "question": "杭州今天天气怎么样",
+      "tool": "get_weather",
+      "dropped": "city",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_weather",
+        "get_weather"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e038",
+      "question": "北京今天天气",
+      "tool": "get_weather",
+      "dropped": "city",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_weather",
+        "get_weather"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e040",
+      "question": "上海今天热不热",
+      "tool": "get_weather",
+      "dropped": "city",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_weather",
+        "get_weather"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e042",
+      "question": "成都今天需要带伞吗",
+      "tool": "get_weather",
+      "dropped": "city",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_weather",
+        "get_weather"
+      ],
+      "problems": []
+    },
+    {
+      "id": "e044",
+      "question": "广州今天多少度",
+      "tool": "get_weather",
+      "dropped": "city",
+      "injected": true,
+      "passed": true,
+      "healed": true,
+      "rounds": 2,
+      "statuses": [
+        "invalid",
+        "success"
+      ],
+      "tools": [
+        "get_weather",
+        "get_weather"
+      ],
+      "problems": []
+    }
+  ]
+}

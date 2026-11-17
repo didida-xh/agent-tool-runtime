@@ -10,6 +10,10 @@ from app.tools.registry import tool
 GEO_URL = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 
+# Open-Meteo 的 feature_code：PPLC 首都、PPLA 省级中心、PPLA2/3/4 地级/县级中心。
+# 只认行政中心，否则"火星"会被匹配到同名村庄，返回一份看似正常的数据。
+ADMIN_FEATURES = {"PPLC", "PPLA", "PPLA2", "PPLA3", "PPLA4"}
+
 # 城市 → 坐标。Open-Meteo 单次请求实测 2~4s，两次串行会顶到超时线。
 # 内置常见城市坐标：命中就跳过地理编码，直接省掉一半耗时（服务重启后依然有效）。
 _BUILTIN_COORDS = {
@@ -49,10 +53,22 @@ async def get_weather(city: str, date: str = "today") -> dict:
                 loc = {"latitude": coord[0], "longitude": coord[1], "name": city}
             else:
                 geo = await client.get(
-                    GEO_URL, params={"name": city, "count": 1, "language": "zh", "format": "json"}
+                    GEO_URL,
+                    params={
+                        "name": city,
+                        "count": 5,
+                        "language": "zh",
+                        "format": "json",
+                        "countryCode": "CN",
+                    },
                 )
                 geo.raise_for_status()
-                places = geo.json().get("results") or []
+                places = [
+                    p
+                    for p in (geo.json().get("results") or [])
+                    if p.get("country_code") == "CN"
+                    and p.get("feature_code") in ADMIN_FEATURES
+                ]
                 if not places:
                     # 查不到城市属业务结果：返回 success，让模型改说法而不是重试
                     return {"found": False, "message": f"未找到城市 {city}，请确认城市名"}
